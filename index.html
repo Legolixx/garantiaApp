@@ -58,15 +58,65 @@
 
 function userLogin() {
  
- const userName = document.getElementById('user').value
- const Password = document.getElementById('password').value
+ const userName = document.getElementById('user').value;
+ const Password = document.getElementById('password').value;
 
- window.location.href = 'form.html';
+if(userName === 'RECIFE' && Password === '123') {
 
+    const dado = ['PATEO ILHA DO RETIRO'];
+    const url = 'form.html?parametro=' + encodeURIComponent(dado);
+    window.location.href = url;
+
+}else if (userName === 'OLINDA' && Password === '123') {
+
+    const dado = ['PATEO OLINDA'];
+    const url = 'form.html?parametro=' + encodeURIComponent(dado);
+    window.location.href = url;
+    
+}else if (userName === 'PIEDADE' && Password === '123') {
+
+const dado = ['PATEO PIEDADE'];
+const url = 'form.html?parametro=' + encodeURIComponent(dado);
+window.location.href = url;
  
+}else if (userName === 'JÃOPESSOA' && Password === '123') {
+
+const dado = ['PATEO JOÃO PESSOA'];
+const url = 'form.html?parametro=' + encodeURIComponent(dado);
+window.location.href = url;
+
+}else if (userName === 'MANAUS' && Password === '123') {
+
+const dado = ['PATEO MANAUS'];
+const url = 'form.html?parametro=' + encodeURIComponent(dado);
+window.location.href = url;
+
+}else if (userName === 'RETIRO' && Password === '123') {
+
+const dado = ['PATEO RETIRO'];
+const url = 'form.html?parametro=' + encodeURIComponent(dado);
+window.location.href = url;
+
+}else if (userName === 'FEIRA' && Password === '123') {
+
+const dado = ['PATEO FEIRA'];
+const url = 'form.html?parametro=' + encodeURIComponent(dado);
+window.location.href = url;
+
+}else if (userName === 'BEQUIMAO' && Password === '123') {
+
+const dado = ['PATEO BEQUIMÃO'];
+const url = 'form.html?parametro=' + encodeURIComponent(dado);
+window.location.href = url;
+
+}else if (userName === 'HOLANDESES' && Password === '123') {
+
+const dado = ['PATEO HOLANDESES'];
+const url = 'form.html?parametro=' + encodeURIComponent(dado);
+window.location.href = url;
+
 }
-
-
+}
 </script>
  
 </body>
