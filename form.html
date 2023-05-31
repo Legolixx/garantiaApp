@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Entry by codeSith</title>
+    <title>Data Entry</title>
     <link 
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
         rel="stylesheet" 
@@ -12,106 +12,219 @@
         crossorigin="anonymous" 
     />
     <style>
+
+
+        .col-6 {
+            padding: 10px;
+        }
+        
         form {
-            font-size: 40px !important;
-            width: min(800px, 90%);
+            display:grid;
+            
+            justify-items: center;
+        }
+
+        .form-row {
+            display: flex;
+            
+        }
+        .col-auto, .mx-3 {
+            padding: 10px;
+        }
+    
+        h1 {
+            display: flex;
+            padding: 20px;
+            justify-content: center;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 50px;
+            font-weight: bold;
+            color: darkblue;
         }
     </style>
 </head>
 <body>
-    <form
-        id = "form"
-        class = "mx-auto my-5 shadow p-2"
-        method = "POST"
-    >
-    <!-- action= will be set by javascript -->
-        <div class="mb-1 d-flex">
-            <label class="mx-3" for="customer">Customer:</label>
-            <input
-                type="text"
-                class="mx-3 form-control"
-                id="customer"
-                name="Customer"
-                list="customers"
-            />
-            <datalist id="customers">
+
+    <h1 id="title"></h1>
+
+
+    <form id ="form" method = "POST">
+    
+    <div class="form-row align-items-center">
+        <div class="col-auto">
+
+            <label class="mx-3" for="data">DATA:</label>
+            <input type="text"class="mx-3 form-control" id="data"name="Data" readonly/>
+
+        </div>
+        <div class="col-auto">
+
+            <label class="mx-3" for="price">FILIAL:</label>
+            <input type="text" class="mx-3 form-control" id="filial" name="Filial" readonly />
+
+        </div>
+        <div class="col-auto">
+
+            <label class="mx-3" for="price">OS:</label>
+            <input type="number" class="mx-3 form-control" id="os" name="OS"/>
+
+        </div>
+    </div>
+
+        <div class="col-6">
+            <label class="mx-3" for="consultor">CONSULTOR:</label>
+            <input type="text" class="mx-3 form-control" id="consultor" name="Consultor" list="consultores"/>
+            <datalist id="consultores">
                 <!-- javascript will add options here -->
             </datalist>
         </div>
-        <div class="mb-1 d-flex">
-            <label class="mx-3" for="phone">Phone:</label>
-            <input
-                type="text"
-                class="mx-3 form-control"
-                id="phone"
-                name="Phone"
-                list="phones"
-            />
-            <datalist id="phones">
-                <!-- javascript will add options here -->
-            </datalist>
-        </div>
-        <div class="mb-1 d-flex">
-            <label class="mx-3" for="address">Address:</label>
-            <input
-                type="text"
-                class="mx-3 form-control"
-                id="address"
-                name="Address"
-                list="addresses"
-            />
-            <datalist id="addresses">
+        
+        <div class="col-6">
+            <label class="mx-3" for="categoria">CATEGORIA:</label>
+            
+            <input type="text" class="mx-3 form-control" id="categoria" name="Categoria" list="categorias"/>
+            <datalist id="categorias">
                 <!-- javascript will add options here -->                
             </datalist>
         </div>
-        <div class="mb-1 d-flex">
-            <label class="mx-3" for="price">Price:</label>
-            <input
-                type="text"
-                class="mx-3 form-control"
-                id="price"
-                name="Price"
-            />
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <input type="button" onclick="backHome()" class="btn btn-primary" value="voltar">
+
+        <div class="col-6">
         
+            <label class="mx-3" for="obs">OBS:</label>
+            <input type="text" class="mx-3 form-control" id="obs" name="Obs" list="obses"/>
+            <datalist id="obses">
+                <!-- javascript will add options here -->                
+            </datalist>
+
+        </div> 
+        
+        <div class="col-6">
+        <button type="submit" class="btn btn-primary mx-3 form-control" id="btn_enviar">ENVIAR</button>
+     </div> 
+        <input type="button" class="btn btn-primary" value="voltar" onclick="voltarHome()">
+
     </form>
+
     <script>
 
-function backHome() {
- window.location.href = 'index.html';
-}
+            const date = new Date();
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const joined = [day, month, year].join('/');
+
+            const data = document.getElementById('data');
+
+            data.value = joined;
+            
+        
+                 const categInput = document.getElementById('categoria');
+
+                 categInput.addEventListener('input', function(event) {
+                const valorSelecionado = event.target.value;
+                const opcoes = document.getElementById('categorias').childNodes;
+                const obs = document.getElementById('obs');
+                const obses = document.getElementById('obses');
+                while (obses.firstChild) {
+                obses.removeChild(obses.firstChild);
+             }
+                obs.value = ''   ;           
+ 
+                // Verifica se o valor digitado está presente nas opções do datalist
+                const opcaoValida = Array.from(opcoes).some(function(opcao) {
+                    return opcao.value === valorSelecionado;
+                });
+
+                // Se o valor não for válido, limpa o campo de entrada
+                if (!opcaoValida) {
+                    event.target.value = '';
+                }
+                });
+
+                const obsInput = document.getElementById('obs');
+
+                    obsInput.addEventListener('input', function(event) {
+                    const valorSelecionado = event.target.value;
+                    const opcoes = document.getElementById('obses').childNodes;
+
+                    // Verifica se o valor digitado está presente nas opções do datalist
+                    const opcaoValida = Array.from(opcoes).some(function(opcao) {
+                        return opcao.value === valorSelecionado;
+                    });
+
+                    // Se o valor não for válido, limpa o campo de entrada
+                    if (!opcaoValida) {
+                        event.target.value = '';
+                    }
+
+                  
+                    });
 
 
-        const url = "https://script.google.com/macros/s/AKfycbzoWEB8xe6CdO144BV6XmIGO2dcTqg0L5wQRKlf_Pszcaa0dUFLC1CAKeck0rdMeZnB/exec" // enter your public ('access' - 'anyone') deployment URL (NOT test deployment!)
-        document.getElementById('form').action = url;
+            function obterValorParametro(nome) {
+                var parametros = new URLSearchParams(window.location.search);
+                return parametros.get(nome);
+            }
+                var parametro = obterValorParametro('parametro');
+                var title = document.getElementById('title');
+                title.textContent = parametro;
+                const Filial = document.getElementById('filial');
+                Filial.value = parametro;
+
+            function voltarHome() {
+
+                window.location.href = "index.html";
+                
+            }
+
+        
+        const url = "https://script.google.com/macros/s/AKfycbz1Ppw0Fd5PUDhzEvHzTbRgtmaiQNI6-vbOxHwIDjp3b4ekLX1l6LBEcSN-6nmz3g54hA/exec" // enter your public ('access' - 'anyone') deployment URL (NOT test deployment!)
+        
+         document.getElementById('form').action = url;
+        
 
         // fetching the data from each column in the sheet
         // then populating the respective datalist
-        fetch(`${url}?header=Customer`)
+        fetch(`${url}?header=${parametro}`)
             .then((response) => response.json())
             .then(({ data }) => {
                 console.log(data);
-                populateDatalists("customers", data)
+                populateDatalists("consultores", data)
             })
             .catch((error) => console.error('!!!!!!!!', error));
 
-        fetch(`${url}?header=Phone`)
-            .then((response) => response.json())
-            .then(({ data }) => {
-                console.log(data);
-                populateDatalists("phones", data)
-            })
-            .catch((error) => console.error('!!!!!!!!', error));
+        const urlCateg = "https://script.google.com/macros/s/AKfycbzdDSCTBrKUUNhBkQXFTB1mlSGYd5tIDkmadqC1-ZRXPnwUjhsj6mSur1IpmCv8SZ0nJw/exec"
+
         
-        fetch(`${url}?header=Address`)
+        fetch(`${urlCateg}?header=Categoria`)
             .then((response) => response.json())
-            .then(({ data }) => {
+            .then(({data}) => {
                 console.log(data);
-                populateDatalists("addresses", data)
+                populateDatalists("categorias", data)
             })
             .catch((error) => console.error('!!!!!!!!', error));
+
+
+
+            const categoriaSelect = document.getElementById('categoria');
+
+            categoriaSelect.addEventListener('input', function() {
+                const categoriaSelect = this.value;
+                buscaObs(categoriaSelect)
+            })
+
+            function buscaObs(arg) {
+
+                fetch(`${urlCateg}?header=${arg}`)
+            .then((response) => response.json())
+            .then(({data}) => {
+                console.log(data);
+                populateDatalists("obses", data)
+            })
+            .catch((error) => console.error('!!!!!!!!', error));
+
+            }
+
 
         // function to add options to datalists
         const populateDatalists = (id, arr) => {
